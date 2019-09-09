@@ -68,7 +68,7 @@ lazy val core = (project in file("."))
       "org.scalatest" %% "scalatest" % "3.0.5" % IntegrationTest
     ),
     addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.6"),
-    addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.0"),
+    addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
     testFrameworks += new TestFramework("com.github.agourlay.cornichon.framework.CornichonFramework"),
     scalafmtOnCompile := true,
     initialCommands in console := """
