@@ -63,7 +63,7 @@ lazy val core = (project in file("."))
       "io.chrisdavenport" %% "epimetheus" % "0.2.2",
       "io.chrisdavenport" %% "epimetheus-http4s" % "0.2.0",
       "io.chrisdavenport" %% "epimetheus-log4cats" % "0.2.1",
-      "org.scalactic" %% "scalactic" % "3.0.5",
+      "org.scalactic" %% "scalactic" % "3.0.8",
       "org.scalatest" %% "scalatest" % "3.0.5" % Test,
       "org.scalatest" %% "scalatest" % "3.0.5" % IntegrationTest
     ),
