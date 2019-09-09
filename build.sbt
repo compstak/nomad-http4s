@@ -64,8 +64,8 @@ lazy val core = (project in file("."))
       "io.chrisdavenport" %% "epimetheus-http4s" % "0.2.0",
       "io.chrisdavenport" %% "epimetheus-log4cats" % "0.2.1",
       "org.scalactic" %% "scalactic" % "3.0.5",
-      "org.scalatest" %% "scalatest" % "3.0.5" % Test,
-      "org.scalatest" %% "scalatest" % "3.0.5" % IntegrationTest
+      "org.scalatest" %% "scalatest" % "3.0.8" % Test,
+      "org.scalatest" %% "scalatest" % "3.0.8" % IntegrationTest
     ),
     addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.6"),
     addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.0"),
