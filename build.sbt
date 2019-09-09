@@ -55,7 +55,7 @@ lazy val core = (project in file("."))
       "io.chrisdavenport" %% "log4cats-slf4j" % Log4CatsVersion,
       "ch.qos.logback" % "logback-classic" % "1.2.3",
       "ch.qos.logback" % "logback-core" % "1.2.3",
-      "net.logstash.logback" % "logstash-logback-encoder" % "5.2",
+      "net.logstash.logback" % "logstash-logback-encoder" % "5.3",
       "is.cir" %% "ciris-cats" % CirisVersion,
       "is.cir" %% "ciris-cats-effect" % CirisVersion,
       "is.cir" %% "ciris-core" % CirisVersion,
