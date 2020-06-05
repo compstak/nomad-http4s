@@ -6,7 +6,7 @@ inThisBuild(
   List(
     scalaVersion := scala213,
     organization := "com.compstak",
-    homepage := Some(url("https://github.com/compstak/circe-geojson")),
+    homepage := Some(url("https://github.com/compstak/nomad-http4s")),
     licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
     developers := List(
       Developer(
