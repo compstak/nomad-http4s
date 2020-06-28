@@ -5,8 +5,30 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.6
 
 _defaults: &defaults
-  machine:
-    docker_layer_caching: false
+  # machine:
+  #   docker_layer_caching: false
+  docker:
+    - image: openjdk:8
+      environment:
+        SBT_VERSION: 1.3.12
+    - image: multani/nomad
+      command:
+        - agent
+        - -dev
+      environment:
+        NOMAD_LOCAL_CONFIG: |
+          datacenter = "${REGION}"
+          region     = "${DATACENTER}"
+
+          data_dir = "/nomad/data/"
+
+          bind_addr = "0.0.0.0"
+
+          advertise {
+            http = "{{ GetPrivateIP }}:4646"
+            rpc  = "{{ GetPrivateIP }}:4647"
+            serf = "{{ GetPrivateIP }}:4648"
+          }
   working_directory: ~/repo
   environment:
     # Customize the JVM maximum heap limit
@@ -19,9 +41,9 @@ workflows:
   development:
     jobs:
       - build:
-        filters:
-          tags:
-            only: /^v.*/
+          filters:
+            tags:
+              only: /^v.*/
       - publish-snapshot:
           context: nexus
           requires:
@@ -45,13 +67,22 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: Get sbt binary
+          command: |
+            apt update && apt install -y curl
+            curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
+            dpkg -i sbt-$SBT_VERSION.deb
+            rm sbt-$SBT_VERSION.deb
+            apt-get clean && apt-get autoclean
       - restore_cache:
           keys:
             - v2-dependencies-{{ checksum "build.sbt" }}
             - v2-dependencies-
       - run:
           name: Compile
-          command: cat /dev/null | sbt validate
+          command: |
+            cat /dev/null | sbt +validate
       - save_cache:
           paths:
             - ~/.cache/coursier
@@ -60,22 +91,6 @@ jobs:
             - ~/.sbt
             - target
           key: v2-dependencies-{{ checksum "build.sbt" }}
-
-  test:
-    <<: *defaults
-    steps:
-      - checkout
-      - run:
-          command: docker info
-      - restore_cache:
-          keys:
-            - v2-dependencies-{{ checksum "build.sbt" }}
-            - v2-dependencies-
-      - aws-ecr/ecr-login:
-          region: $AWS_REGION
-      - run:
-          name: Run standard test suite
-          command: cat /dev/null | sbt +test
 
   publish:
     <<: *defaults
