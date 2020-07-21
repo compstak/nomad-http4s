@@ -54,7 +54,7 @@ lazy val core = (project in file("."))
       "org.http4s" %% "http4s-circe" % Http4sVersion,
       "org.http4s" %% "http4s-dsl" % Http4sVersion,
       "org.scalatest" %% "scalatest" % "3.1.2" % Test,
-      "com.codecommit" %% "cats-effect-testing-scalatest" % "0.4.0" % Test,
+      "com.codecommit" %% "cats-effect-testing-scalatest" % "0.4.1" % Test,
       "org.http4s" %% "http4s-async-http-client" % Http4sVersion % Test
     ),
     addCompilerPlugin(("org.typelevel" %% "kind-projector" % "0.11.0").cross(CrossVersion.full)),
