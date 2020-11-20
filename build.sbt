@@ -26,7 +26,7 @@ inThisBuild(
 )
 
 val CirceVersion = "0.13.0"
-val Http4sVersion = "0.21.9"
+val Http4sVersion = "0.21.11"
 
 scalacOptions ++= Seq(
   "-deprecation",
