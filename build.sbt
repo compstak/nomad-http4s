@@ -57,7 +57,7 @@ lazy val core = (project in file("."))
       "com.codecommit" %% "cats-effect-testing-scalatest" % "0.4.0" % Test,
       "org.http4s" %% "http4s-async-http-client" % Http4sVersion % Test
     ),
-    addCompilerPlugin(("org.typelevel" %% "kind-projector" % "0.11.1").cross(CrossVersion.full)),
+    addCompilerPlugin(("org.typelevel" %% "kind-projector" % "0.11.2").cross(CrossVersion.full)),
     addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
     testFrameworks += new TestFramework("com.github.agourlay.cornichon.framework.CornichonFramework"),
     scalafmtOnCompile := true,
