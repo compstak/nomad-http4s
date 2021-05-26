@@ -25,7 +25,7 @@ inThisBuild(
   )
 )
 
-val CirceVersion = "0.13.0"
+val CirceVersion = "0.14.1"
 val Http4sVersion = "0.21.12"
 
 scalacOptions ++= Seq(
