@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@0.0.5
   aws-cli: circleci/aws-cli@0.1.6
+  jira: circleci/jira@2.1.0
 
 _defaults: &defaults
   # machine:
@@ -41,11 +42,15 @@ workflows:
   development:
     jobs:
       - build:
+          context:
+            - jira-webhook
           filters:
             tags:
               only: /^v.*/
       - publish-snapshot:
-          context: nexus
+          context:
+            - nexus
+            - jira-webhook
           requires:
             - build
           filters:
@@ -53,7 +58,9 @@ workflows:
               only:
                 - master
       - publish:
-          context: nexus
+          context:
+            - nexus
+            - jira-webhook
           requires:
             - build
           filters:
@@ -91,7 +98,9 @@ jobs:
             - ~/.sbt
             - target
           key: v2-dependencies-{{ checksum "build.sbt" }}
-
+      - jira/notify:
+          pipeline_id: << pipeline.id >>
+          pipeline_number: << pipeline.number >>
   publish:
     <<: *defaults
     steps:
@@ -104,7 +113,9 @@ jobs:
     - run:
         name: Release version and bump snapshot
         command: cat /dev/null | sbt ci-release
-
+    - jira/notify:
+        pipeline_id: << pipeline.id >>
+        pipeline_number: << pipeline.number >>
 
   publish-snapshot:
     <<: *defaults
@@ -118,3 +129,6 @@ jobs:
     - run:
         name: Release version and bump snapshot
         command: cat /dev/null | sbt ci-release
+    - jira/notify:
+        pipeline_id: << pipeline.id >>
+        pipeline_number: << pipeline.number >>
